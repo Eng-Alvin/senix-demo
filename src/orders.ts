@@ -18,3 +18,7 @@ export function createOrder(userId: string, totalCents: number): Order {
 export function getOrder(id: string): Order | undefined {
   return orders.get(id);
 }
+
+export function listOrdersForUser(userId: string): Order[] {
+  return [...orders.values()].filter((o) => o.userId === userId);
+}
