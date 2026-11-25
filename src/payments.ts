@@ -11,6 +11,7 @@ export async function captureCharge(orderId: string, totalCents: number): Promis
     body: JSON.stringify({ orderId, amount: totalCents, currency: 'usd' }),
     signal: AbortSignal.timeout(10_000),
   });
+  if (!res.ok) throw new Error(`Charge failed: ${res.status}`);
   const body = (await res.json()) as { chargeId: string };
   return body.chargeId;
 }
