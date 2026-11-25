@@ -8,7 +8,8 @@ export async function captureCharge(orderId: string, totalCents: number): Promis
       Authorization: `Bearer ${PAYMENTS_API_SECRET}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ orderId, amount: totalCents }),
+    body: JSON.stringify({ orderId, amount: totalCents, currency: 'usd' }),
+    signal: AbortSignal.timeout(10_000),
   });
   const body = (await res.json()) as { chargeId: string };
   return body.chargeId;
